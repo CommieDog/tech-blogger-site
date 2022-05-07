@@ -20,8 +20,7 @@ router.get('/', /*withAuth,*/ async (req, res) => {
 //   } catch (err) {
 //     res.status(500).json(err);
 //   }
-    res.send("You have reached the front page");
-    //res.render("Front-page");
+    res.render("front-page");
 });
 
 // router.get('/login', (req, res) => {
