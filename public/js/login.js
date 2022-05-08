@@ -28,7 +28,7 @@ async function submitSignInForm(event)
 async function submitSignUpForm(event)
 {
     event.preventDefault();
-    const response = await fetch("api/users/login/", {
+    const response = await fetch("api/users/signup/", {
         method: 'POST',
         body: JSON.stringify({ username: signUpUsernameField.value.trim(), email: signUpEmailField.value.trim(), password: signUpPasswordField.value.trim() }),
         headers: { 'Content-Type': 'application/json' },
