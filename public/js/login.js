@@ -18,6 +18,8 @@ async function submitSignInForm(event)
     if(response.ok)
     {
         document.location.replace("/"); // Return to homepage
+        document.location.reload(); // Reload session to update login state on page
+        document.location.replace("/"); // Return to homepage...again. Don't ask me why this is necessary
     }
     else
     {
@@ -37,6 +39,8 @@ async function submitSignUpForm(event)
     if(response.ok)
     {
         document.location.replace("/"); // Return to homepage
+        document.location.reload(); // Reload session to update login state on page
+        document.location.replace("/"); // Return to homepage...again. Don't ask me why this is necessary
     }
     else
     {

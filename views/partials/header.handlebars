@@ -6,7 +6,10 @@
         {{#unless loggedIn}}
         <li><a href="/login">Login</a></li>
         {{else}}
-        <li><a href="/logout">Logout</a></li>
+        <li><button id="logout-button">Logout</button><!--<a href="api/users/logout">Logout</a>--></li>
         {{/unless}}
     </ul>
 </header>
+{{#if loggedIn}}
+<script src="js/logout.js"></script>
+{{/if}}

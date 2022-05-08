@@ -56,7 +56,10 @@ router.get('/login', (req, res) => {
 //     return;
 //   }
 
-    res.render("login");
+    res.render("login",
+    {
+        loggedIn: req.session.logged_in
+    });
 });
 
 module.exports = router;
