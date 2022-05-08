@@ -49,6 +49,14 @@ router.get('/dashboard', checkAuth, async (req, res) => {
     });
 });
 
+// Prevent non logged in users from viewing the homepage
+router.get('/post', checkAuth, async (req, res) => {
+    res.render("new-post",
+    {
+        loggedIn: req.session.logged_in
+    });
+});
+
 router.get('/login', (req, res) => {
 //   // If a session exists, redirect the request to the homepage
 //   if (req.session.logged_in) {
