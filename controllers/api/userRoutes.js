@@ -24,14 +24,14 @@ router.post('/login', async (req, res) => {
     }
 
     // Create session variables based on the logged in user
-    /*req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-      
-      res.json({ user: userData, message: 'You are now logged in!' });
-    });*/
-    res.json({ message: "Hit login route" });
+    req.session.save(() => {
+        req.session.user_id = userData.id;
+        req.session.logged_in = true;
+        console.log(`Session login saved: ${req.session.logged_in}`)
+        res.json({ user: userData, message: 'You are now logged in!' });
+    });
   } catch (err) {
+    console.error(err);
     res.status(400).json(err);
   }
 });
@@ -39,20 +39,26 @@ router.post('/login', async (req, res) => {
 router.post('/signup', async (req, res) =>
 {
     // Check to see if there is already a user with that email address
-    const userData = await User.count({ where: { email: req.body.email } });
+    let userData = await User.count({ where: { email: req.body.email } });
     if(userData)
     {
         console.log("User email aready taken!");
         return res.status(400).json({ message: 'User email aready taken, please try again' });
     }
-    await User.create(
+    userData = await User.create(
         {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
         }
     );
-    res.json({ message: 'You are now logged in!' });
+    // Create session variables based on the logged in user
+    req.session.save(() => {
+        req.session.user_id = userData.id;
+        req.session.logged_in = true;
+        console.log(`Session login saved: ${req.session.logged_in}`)
+        res.json({ message: 'You are now logged in!' });
+    });
 });
 
 router.post('/logout', (req, res) => {

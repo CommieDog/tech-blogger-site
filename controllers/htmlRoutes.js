@@ -1,6 +1,6 @@
 const router = require('express').Router();
 // const { User } = require('../models');
-// const withAuth = require('../utils/auth');
+const checkAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
 //   try {
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
 });
 
 // Prevent non logged in users from viewing the homepage
-router.get('/dashboard', /*withAuth,*/ async (req, res) => {
+router.get('/dashboard', checkAuth, async (req, res) => {
 //   try {
 //     const userData = await User.findAll({
 //       attributes: { exclude: ['password'] },

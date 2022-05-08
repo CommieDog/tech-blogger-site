@@ -21,7 +21,8 @@ async function submitSignInForm(event)
     }
     else
     {
-        alert("Unable to sign in");
+        alert((await response.json()).message);
+        alert(response)
     }
 }
 
