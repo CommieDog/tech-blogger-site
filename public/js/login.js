@@ -18,17 +18,19 @@ async function submitSignInForm(event)
     if(response.ok)
     {
         document.location.replace("/"); // Return to homepage
+        document.location.reload(); // Reload session to update login state on page
+        document.location.replace("/"); // Return to homepage...again. Don't ask me why this is necessary
     }
     else
     {
-        alert("Unable to sign in");
+        alert((await response.json()).message);
     }
 }
 
 async function submitSignUpForm(event)
 {
     event.preventDefault();
-    const response = await fetch("api/users/login/", {
+    const response = await fetch("api/users/signup/", {
         method: 'POST',
         body: JSON.stringify({ username: signUpUsernameField.value.trim(), email: signUpEmailField.value.trim(), password: signUpPasswordField.value.trim() }),
         headers: { 'Content-Type': 'application/json' },
@@ -37,6 +39,8 @@ async function submitSignUpForm(event)
     if(response.ok)
     {
         document.location.replace("/"); // Return to homepage
+        document.location.reload(); // Reload session to update login state on page
+        document.location.replace("/"); // Return to homepage...again. Don't ask me why this is necessary
     }
     else
     {

@@ -2,7 +2,14 @@
     <h1>The Tech Blog</h1>
     <ul>
         <li><a href="/">Front Page</a></li>
-        <li>Dashboard</li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        {{#unless loggedIn}}
         <li><a href="/login">Login</a></li>
+        {{else}}
+        <li><button id="logout-button">Logout</button><!--<a href="api/users/logout">Logout</a>--></li>
+        {{/unless}}
     </ul>
 </header>
+{{#if loggedIn}}
+<script src="js/logout.js"></script>
+{{/if}}
