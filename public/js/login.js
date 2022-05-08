@@ -22,7 +22,6 @@ async function submitSignInForm(event)
     else
     {
         alert((await response.json()).message);
-        alert(response)
     }
 }
 

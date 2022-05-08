@@ -15,7 +15,6 @@ router.post('/login', async (req, res) => {
 
     // Verify the posted password with the password store in the database
     const validPassword = userData.checkPassword(req.body.password);
-    console.log(validPassword);
     if (!validPassword) {
       res
         .status(400)
@@ -27,7 +26,6 @@ router.post('/login', async (req, res) => {
     req.session.save(() => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
-        console.log(`Session login saved: ${req.session.logged_in}`)
         res.json({ user: userData, message: 'You are now logged in!' });
     });
   } catch (err) {
@@ -56,7 +54,6 @@ router.post('/signup', async (req, res) =>
     req.session.save(() => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
-        console.log(`Session login saved: ${req.session.logged_in}`)
         res.json({ message: 'You are now logged in!' });
     });
 });

@@ -3,6 +3,10 @@
     <ul>
         <li><a href="/">Front Page</a></li>
         <li><a href="/dashboard">Dashboard</a></li>
+        {{#unless loggedIn}}
         <li><a href="/login">Login</a></li>
+        {{else}}
+        <li><a href="/logout">Logout</a></li>
+        {{/unless}}
     </ul>
 </header>

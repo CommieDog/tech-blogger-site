@@ -19,7 +19,10 @@ router.get('/', async (req, res) => {
 //   } catch (err) {
 //     res.status(500).json(err);
 //   }
-    res.render("front-page");
+    res.render("front-page",
+    {
+        loggedIn: req.session.logged_in
+    });
 });
 
 // Prevent non logged in users from viewing the homepage
@@ -40,7 +43,10 @@ router.get('/dashboard', checkAuth, async (req, res) => {
 //   } catch (err) {
 //     res.status(500).json(err);
 //   }
-    res.render("dashboard");
+    res.render("dashboard",
+    {
+        loggedIn: req.session.logged_in
+    });
 });
 
 router.get('/login', (req, res) => {
