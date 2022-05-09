@@ -30,9 +30,9 @@ router.get('/dashboard', checkAuth, async (req, res) => {
     const userData = await User.findByPk(req.session.user_id, 
       {
         attributes: {
-          exclude: ["password"]
+          exclude: ["password"] // Just to be on the safe side
         }
-      })
+      });
     const postData = await Post.findAll({
       where:
       {
@@ -55,7 +55,7 @@ router.get('/dashboard', checkAuth, async (req, res) => {
   }
 });
 
-// Prevent non logged in users from viewing the homepage
+// Prevent non logged in users from viewing
 router.get('/post', checkAuth, async (req, res) => {
     res.render("new-post",
     {
