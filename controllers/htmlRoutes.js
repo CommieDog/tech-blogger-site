@@ -1,28 +1,22 @@
 const router = require('express').Router();
- const { User, Post } = require('../models');
+const { User, Post } = require('../models');
 const checkAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
-//   try {
-//     const userData = await User.findAll({
-//       attributes: { exclude: ['password'] },
-//       order: [['name', 'ASC']],
-//     });
-
-//     const users = userData.map((project) => project.get({ plain: true }));
-
-//     res.render('homepage', {
-//       users,
-//       // Pass the logged in flag to the template
-//       logged_in: req.session.logged_in,
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-    res.render("front-page",
-    {
-        loggedIn: req.session.logged_in
+  try {
+    const postData = await Post.findAll({
+      order: [['created_at', 'DESC']],
     });
+
+    const posts = postData.map((post) => post.get({ plain: true }));
+
+    res.render('front-page', {
+      posts,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.get('/post-edit/:id', checkAuth, async (req, res) => {
