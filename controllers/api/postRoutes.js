@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Post } = require('../../models');
 const checkAuth = require('../../utils/auth');
 
 router.post('/', checkAuth, async (req, res) => {
@@ -33,7 +33,21 @@ router.post('/', checkAuth, async (req, res) => {
     console.error(err);
     res.status(400).json(err);
   }*/
-  res.json({ message: "POST /api/posts/ route hit!"});
+  try
+  {
+    const post = await Post.create(
+      {
+        author_id: req.session.user_id,
+        title: req.body.title,
+        content: req.body.content
+      }
+    )
+    res.json({ blogpost: post });
+  }
+  catch(error)
+  {
+    res.status(400).json(error);
+  }
 });
 
 router.post('/signup', async (req, res) =>

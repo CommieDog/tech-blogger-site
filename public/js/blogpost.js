@@ -10,16 +10,18 @@ async function submitBlogpostForm(event)
         body: JSON.stringify({ title: blogpostTitleField.value.trim(), content: blogpostContentField.value.trim() }),
         headers: { 'Content-Type': 'application/json' },
     });
-    alert((await response.json()).message);
     if(response.ok)
     {
-        document.location.replace("/"); // Return to homepage
-        document.location.reload(); // Reload session to update login state on page
-        document.location.replace("/"); // Return to homepage...again. Don't ask me why this is necessary
+        //alert((await response.json()).message);
+        //document.location.replace("/"); // Return to homepage
+        //document.location.reload(); // Reload session to update login state on page
+       // document.location.replace("/"); // Return to homepage...again. Don't ask me why this is necessary
+       document.location.assign("/dashboard");
     }
     else
     {
-        alert((await response.json()).message);
+        alert("Error when creating post!");
+        console.log((await response.json()).error);
     }
 }
 
