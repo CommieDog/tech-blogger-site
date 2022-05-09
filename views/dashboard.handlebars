@@ -1,4 +1,15 @@
 {{> header}}
-<main>
-    <p>This is the dashboard</p>
+<main id="dashboard">
+    <h2>Dashboard for {{user.username}}</h2>
+    <a href="/post"><button>Write a new blog post...</button></a>
+    {{#each posts as |post|}}
+    <article>
+        <h3>{{post.title}}</h3>
+        <button class="edit-button" data-post-id="{{post.id}}">Edit</button>
+        <button class="delete-button" data-post-id="{{post.id}}">Delete</button>
+        <p>{{format_time post.createdAt}}</p>
+        <p>{{post.content}}</p>
+    </article>
+    {{/each}}
 </main>
+<script src="js/dashboard.js"></script>

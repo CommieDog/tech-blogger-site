@@ -1,5 +1,5 @@
 const router = require('express').Router();
-// const { User } = require('../models');
+ const { User, Post } = require('../models');
 const checkAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -25,25 +25,59 @@ router.get('/', async (req, res) => {
     });
 });
 
-// Prevent non logged in users from viewing the homepage
+router.get('/post-edit/:id', checkAuth, async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id);
+    const post = postData.get({ plain: true });
+
+    if(post.author_id !== req.session.user_id)
+    {
+      return res.status(400).json({ message: "Cannot edit someone else's post!" }); // Block editing of another user's post
+    }
+
+    res.render("edit-post",
+    {
+        post: post,
+        loggedIn: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.get('/dashboard', checkAuth, async (req, res) => {
-//   try {
-//     const userData = await User.findAll({
-//       attributes: { exclude: ['password'] },
-//       order: [['name', 'ASC']],
-//     });
+  try {
+    const userData = await User.findByPk(req.session.user_id, 
+      {
+        attributes: {
+          exclude: ["password"] // Just to be on the safe side
+        }
+      });
+    const postData = await Post.findAll({
+      where:
+      {
+       author_id: req.session.user_id
+      },
+      order: [['id', 'ASC']],
+    });
 
-//     const users = userData.map((project) => project.get({ plain: true }));
+    const user = userData.get({ plain: true });
+    const posts = postData.map((post) => post.get({ plain: true }));
 
-//     res.render('homepage', {
-//       users,
-//       // Pass the logged in flag to the template
-//       logged_in: req.session.logged_in,
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
     res.render("dashboard",
+    {
+        user: user,
+        posts: posts,
+        loggedIn: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Prevent non logged in users from viewing
+router.get('/post', checkAuth, async (req, res) => {
+    res.render("new-post",
     {
         loggedIn: req.session.logged_in
     });
