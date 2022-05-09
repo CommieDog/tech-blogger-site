@@ -2,4 +2,8 @@
 <main>
     <p>This is the dashboard</p>
     <a href="/post"><button>Write a new blog post...</button></a>
+    {{#each posts as |post|}}
+    <h3>{{post.title}}</h3>
+    <p>{{post.content}}</p>
+    {{/each}}
 </main>
