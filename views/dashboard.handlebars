@@ -4,7 +4,7 @@
     <a href="/post"><button>Write a new blog post...</button></a>
     {{#each posts as |post|}}
     <h3>{{post.title}}</h3>
-    <p>{{post.createdAt}}</p>
+    <p>{{format_time post.createdAt}}</p>
     <p>{{post.content}}</p>
     {{/each}}
 </main>
