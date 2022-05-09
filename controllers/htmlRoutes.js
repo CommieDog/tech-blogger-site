@@ -1,5 +1,5 @@
 const router = require('express').Router();
- const { Post } = require('../models');
+ const { User, Post } = require('../models');
 const checkAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -27,6 +27,12 @@ router.get('/', async (req, res) => {
 
 router.get('/dashboard', checkAuth, async (req, res) => {
   try {
+    const userData = await User.findByPk(req.session.user_id, 
+      {
+        attributes: {
+          exclude: ["password"]
+        }
+      })
     const postData = await Post.findAll({
       where:
       {
@@ -35,10 +41,12 @@ router.get('/dashboard', checkAuth, async (req, res) => {
       order: [['id', 'ASC']],
     });
 
+    const user = userData.get({ plain: true });
     const posts = postData.map((post) => post.get({ plain: true }));
 
     res.render("dashboard",
     {
+        user: user,
         posts: posts,
         loggedIn: req.session.logged_in
     });
