@@ -7,9 +7,7 @@ async function editBlogpost(event)
     event.preventDefault();
     const postId = blogpostForm.getAttribute("data-post-id");
     const response = await fetch("/api/posts/" + postId, {
-        method: 'PUT',
-        body: JSON.stringify({ title: blogpostTitleField.value.trim(), content: blogpostContentField.value.trim() }),
-        headers: { 'Content-Type': 'application/json' },
+        method: 'DELETE',
     });
     if(response.ok)
     {
@@ -21,7 +19,7 @@ async function editBlogpost(event)
     }
     else
     {
-        alert("Error when updating post!");
+        alert("Error when deleting post!");
         console.log((await response.json()).error);
     }
 }

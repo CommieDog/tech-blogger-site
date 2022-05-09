@@ -44,14 +44,23 @@ router.put('/:id', checkAuth, async (req, res) =>
   }
 });
 
-router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
-    // Remove the session variables
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
+router.delete('/:id', checkAuth, async (req, res) =>
+{
+  try
+  {
+    const post = await Post.destroy(
+      {
+        where:
+        {
+          id: req.params.id
+        }
+      }
+    )
+    res.json({ blogpost: post });
+  }
+  catch(error)
+  {
+    res.status(500).json(error);
   }
 });
 
