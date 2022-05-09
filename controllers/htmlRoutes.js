@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
     });
 });
 
-router.get('/post/edit/:id', checkAuth, async (req, res) => {
+router.get('/post-edit/:id', checkAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id);
     const post = postData.get({ plain: true });

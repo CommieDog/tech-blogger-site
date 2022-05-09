@@ -1,7 +1,7 @@
 {{> header}}
 <main>
     <h2>Edit your post</h2>
-    <form id="blogpost-form">
+    <form id="blogpost-form" data-post-id="{{post.id}}">
         <label for="title">Title</label>
         <input name="title" id="blogpost-title" value="{{post.title}}" required></input>
         <label for="content">Content</label>
@@ -9,4 +9,4 @@
         <button type="submit">Update</button>
     </form>
 </main>
-<script src="js/blogpost.js"></script>
+<script src="/js/edit-post.js"></script>

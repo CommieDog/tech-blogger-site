@@ -15,7 +15,7 @@ async function editBlogpost(event)
             //document.location.replace("/"); // Return to homepage
             //document.location.reload(); // Reload session to update login state on page
             // document.location.replace("/"); // Return to homepage...again. Don't ask me why this is necessary
-            document.location.assign("post/edit/" + postId);
+            document.location.assign("post-edit/" + postId);
         //}
         //else
         //{
