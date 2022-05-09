@@ -5,12 +5,12 @@ const blogpostContentField = document.querySelector("#blogpost-content");
 async function submitBlogpostForm(event)
 {
     event.preventDefault();
-    const response = await fetch("/", {
+    const response = await fetch("api/posts/", {
         method: 'POST',
         body: JSON.stringify({ title: blogpostTitleField.value.trim(), content: blogpostContentField.value.trim() }),
         headers: { 'Content-Type': 'application/json' },
     });
-
+    alert((await response.json()).message);
     if(response.ok)
     {
         document.location.replace("/"); // Return to homepage
