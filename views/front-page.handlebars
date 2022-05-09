@@ -3,7 +3,7 @@
     {{#each posts as |post|}}
     <article>
         <h3>{{post.title}}</h3>
-        <p>By: {{post.author_id}}</p>
+        <p>By: {{post.user.username}}</p>
         <p>On: {{format_time post.createdAt}}</p>
         <p>{{post.content}}</p>
     </article>

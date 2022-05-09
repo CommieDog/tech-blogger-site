@@ -5,10 +5,17 @@ const checkAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
     const postData = await Post.findAll({
+      include: [{model: User,
+        attributes: {
+          exclude: ["password"] // Just to be on the safe side
+        }
+      }],
       order: [['created_at', 'DESC']],
     });
 
     const posts = postData.map((post) => post.get({ plain: true }));
+
+    console.log(posts);
 
     res.render('front-page', {
       posts,
