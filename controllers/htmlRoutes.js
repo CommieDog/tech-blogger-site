@@ -25,6 +25,26 @@ router.get('/', async (req, res) => {
     });
 });
 
+router.get('/post/edit/:id', checkAuth, async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id);
+    const post = postData.get({ plain: true });
+
+    if(post.author_id !== req.session.user_id)
+    {
+      return res.status(400).json({ message: "Cannot edit someone else's post!" }); // Block editing of another user's post
+    }
+
+    res.render("edit-post",
+    {
+        post: post,
+        loggedIn: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.get('/dashboard', checkAuth, async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id, 
