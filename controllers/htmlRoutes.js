@@ -32,7 +32,12 @@ router.get('/post-view/:id', async (req, res) => {
           exclude: ["password"] // Just to be on the safe side
         }
       },
-      {model: Comment}
+      {model: Comment,
+        include: [{model: User,
+          attributes: {
+            exclude: ["password"] // Just to be on the safe side
+          }}
+        ]}
     ]});
     const post = postData.get({ plain: true });
 
