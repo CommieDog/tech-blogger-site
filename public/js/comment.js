@@ -1,23 +1,19 @@
+const blogpostId = document.querySelector("#blogpost").getAttribute("data-post-id");
 const commentForm = document.querySelector("#comment-form");
 const commentField = document.querySelector("#comment-field");
 
 async function submitComment(event)
 {
     event.preventDefault();
-    console.log("Submitting comment!");
-    return;
-    const response = await fetch("api/posts/", {
+    console.log("Submitting comment! " + blogpostId);
+    const response = await fetch("/api/comments/", {
         method: 'POST',
-        body: JSON.stringify({ content: commentField.value.trim() }),
+        body: JSON.stringify({ post_id: blogpostId, content: commentField.value.trim() }),
         headers: { 'Content-Type': 'application/json' },
     });
     if(response.ok)
     {
-        //alert((await response.json()).message);
-        //document.location.replace("/"); // Return to homepage
-        //document.location.reload(); // Reload session to update login state on page
-       // document.location.replace("/"); // Return to homepage...again. Don't ask me why this is necessary
-       document.location.assign("/dashboard");
+       document.location.reload();
     }
     else
     {
