@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post } = require('../models');
+const { User, Post, Comment } = require('../models');
 const checkAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -31,7 +31,9 @@ router.get('/post-view/:id', async (req, res) => {
         attributes: {
           exclude: ["password"] // Just to be on the safe side
         }
-      }]});
+      },
+      {model: Comment}
+    ]});
     const post = postData.get({ plain: true });
 
     res.render("view-post",

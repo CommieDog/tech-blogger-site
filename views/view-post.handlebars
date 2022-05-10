@@ -5,6 +5,12 @@
         <p>By: {{post.user.username}}</p>
         <p>On: {{format_time post.createdAt}}</p>
         <p>{{post.content}}</p>
+        {{#each post.comments as |comment|}}
+        <div>
+            <h4>{{comment.author_id}} posted on {{format_time comment.createdAt}}:</h4>
+            <p>{{comment.content}}</p>
+        </div>
+        {{/each}}
     </article>
     {{#if loggedIn}}
     <h3>Leave Comment</h3>
