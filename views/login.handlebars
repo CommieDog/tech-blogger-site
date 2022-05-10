@@ -1,26 +1,28 @@
 {{> header}}
-<main>
-    <div>
-        <h2>Sign In</h2>
-        <form id="sign-in-form">
-            <label for="email">Email Address</label>
-            <input id="sign-in-email" name="email"/>
-            <Label for="password">Password</Label>
-            <input id="sign-in-password" name="password" type="password"/>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-    <div>
-        <h2>Sign Up</h2>
-        <form id="sign-up-form">
-            <label for="username">Username</label>
-            <input id="sign-up-username" name="username"/>
-            <label for="email">Email Address</label>
-            <input id="sign-up-email" name="email"/>
-            <Label for="password">Password</Label>
-            <input id="sign-up-password" name="password" type="password"/>
-            <button type="submit">Submit</button>
-        </form>
+<main class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <h2>Sign In</h2>
+            <form id="sign-in-form">
+                <label class="form-label" for="email">Email Address</label>
+                <input class="form-control" id="sign-in-email" name="email"/>
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" id="sign-in-password" name="password" type="password"/>
+                <button class="btn btn-dark" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <h2>Sign Up</h2>
+            <form id="sign-up-form">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" id="sign-up-username" name="username"/>
+                <label class="form-label" for="email">Email Address</label>
+                <input class="form-control" id="sign-up-email" name="email"/>
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" id="sign-up-password" name="password" type="password"/>
+                <button class="btn btn-dark" type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 </main>
 <script src="js/login.js"></script>

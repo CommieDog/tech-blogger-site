@@ -1,12 +1,12 @@
-<header>
-    <h1>The Tech Blog</h1>
-    <ul>
-        <li><a href="/">Front Page</a></li>
-        <li><a href="/dashboard">Dashboard</a></li>
+<header class="navbar navbar-light bg-light px-3">
+    <h1 class="font-monospace">The Tech Blog</h1>
+    <ul class="navbar-nav">
+        <li class="nav-item"><a href="/">Front Page</a></li>
+        <li class="nav-item"><a href="/dashboard">Dashboard</a></li>
         {{#unless loggedIn}}
-        <li><a href="/login">Login</a></li>
+        <li class="nav-item"><a href="/login">Login</a></li>
         {{else}}
-        <li><button id="logout-button">Logout</button><!--<a href="api/users/logout">Logout</a>--></li>
+        <li class="nav-item"><button id="logout-button">Logout</button><!--<a href="api/users/logout">Logout</a>--></li>
         {{/unless}}
     </ul>
 </header>

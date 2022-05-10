@@ -1,12 +1,12 @@
 {{> header}}
-<main>
+<main class="container">
     <h2>Edit your post</h2>
     <form id="blogpost-form" data-post-id="{{post.id}}">
-        <label for="title">Title</label>
-        <input name="title" id="blogpost-title" value="{{post.title}}" required></input>
-        <label for="content">Content</label>
-        <textarea name="content" id="blogpost-content" rows="10" required>{{post.content}}</textarea>
-        <button type="submit">Update</button>
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" name="title" id="blogpost-title" value="{{post.title}}" required></input>
+        <label class="form-label" for="content">Content</label>
+        <textarea class="form-control" name="content" id="blogpost-content" rows="10" required>{{post.content}}</textarea>
+        <button class="btn btn-dark" type="submit">Update</button>
     </form>
 </main>
 <script src="/js/edit-post.js"></script>
