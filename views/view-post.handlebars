@@ -1,0 +1,25 @@
+{{> header}}
+<main>
+    <article id="blogpost" data-post-id="{{post.id}}">
+        <h3>{{post.title}}</h3>
+        <p>By: {{post.user.username}}</p>
+        <p>On: {{format_time post.createdAt}}</p>
+        <p>{{post.content}}</p>
+        {{#each post.comments as |comment|}}
+        <div>
+            <h4>{{comment.user.username}} posted on {{format_time comment.createdAt}}:</h4>
+            <p>{{comment.content}}</p>
+        </div>
+        {{/each}}
+    </article>
+    {{#if loggedIn}}
+    <h3>Leave Comment</h3>
+    <form id="comment-form">
+        <textarea id="comment-field" rows="5" required></textarea>
+        <button type="submit">Submit Comment</button>
+    </form>
+    <script src="/js/comment.js"></script>
+    {{else}}
+    <p>You must be logged in to comment!</p>
+    {{/if}}
+</main>

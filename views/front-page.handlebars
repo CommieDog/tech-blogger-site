@@ -1,4 +1,11 @@
 {{> header}}
 <main>
-    <p>Test Content in Handlebars</p>
+    {{#each posts as |post|}}
+    <article>
+        <h3><a href="/post-view/{{post.id}}">{{post.title}}</a></h3>
+        <p>By: {{post.user.username}}</p>
+        <p>On: {{format_time post.createdAt}}</p>
+        <p>{{post.content}}</p>
+    </article>
+    {{/each}}
 </main>
