@@ -1,113 +1,119 @@
-const router = require('express').Router();
-const { User, Post, Comment } = require('../models');
-const checkAuth = require('../utils/auth');
+const router = require('express').Router()
+const { User, Post, Comment } = require('../models')
+const checkAuth = require('../utils/auth')
 
 router.get('/', async (req, res) => {
   try {
     const postData = await Post.findAll({
-      include: [{model: User,
+      include: [{
+        model: User,
         attributes: {
-          exclude: ["password"] // Just to be on the safe side
+          exclude: ['password'] // Just to be on the safe side
         }
       }],
-      order: [['created_at', 'DESC']],
-    });
+      order: [['created_at', 'DESC']]
+    })
 
-    const posts = postData.map((post) => post.get({ plain: true }));
+    const posts = postData.map((post) => post.get({ plain: true }))
 
     res.render('front-page', {
       posts,
-      loggedIn: req.session.logged_in,
-    });
+      loggedIn: req.session.logged_in
+    })
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err)
   }
-});
+})
 
 router.get('/post-view/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
-      include: [{model: User,
+      include: [{
+        model: User,
         attributes: {
-          exclude: ["password"] // Just to be on the safe side
+          exclude: ['password'] // Just to be on the safe side
         }
       },
-      {model: Comment,
-        include: [{model: User,
+      {
+        model: Comment,
+        include: [{
+          model: User,
           attributes: {
-            exclude: ["password"] // Just to be on the safe side
-          }}
-        ]}
-    ]});
-    const post = postData.get({ plain: true });
+            exclude: ['password'] // Just to be on the safe side
+          }
+        }
+        ]
+      }
+      ]
+    })
+    const post = postData.get({ plain: true })
 
-    res.render("view-post",
-    {
-        post: post,
+    res.render('view-post',
+      {
+        post,
         loggedIn: req.session.logged_in
-    });
+      })
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err)
   }
-});
+})
 
 router.get('/post-edit/:id', checkAuth, async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id);
-    const post = postData.get({ plain: true });
+    const postData = await Post.findByPk(req.params.id)
+    const post = postData.get({ plain: true })
 
-    if(post.author_id !== req.session.user_id)
-    {
-      return res.status(400).json({ message: "Cannot edit someone else's post!" }); // Block editing of another user's post
+    if (post.author_id !== req.session.user_id) {
+      return res.status(400).json({ message: "Cannot edit someone else's post!" }) // Block editing of another user's post
     }
 
-    res.render("edit-post",
-    {
-        post: post,
+    res.render('edit-post',
+      {
+        post,
         loggedIn: req.session.logged_in
-    });
+      })
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err)
   }
-});
+})
 
 router.get('/dashboard', checkAuth, async (req, res) => {
   try {
-    const userData = await User.findByPk(req.session.user_id, 
+    const userData = await User.findByPk(req.session.user_id,
       {
         attributes: {
-          exclude: ["password"] // Just to be on the safe side
+          exclude: ['password'] // Just to be on the safe side
         }
-      });
+      })
     const postData = await Post.findAll({
       where:
       {
-       author_id: req.session.user_id
+        author_id: req.session.user_id
       },
-      order: [['id', 'ASC']],
-    });
+      order: [['id', 'ASC']]
+    })
 
-    const user = userData.get({ plain: true });
-    const posts = postData.map((post) => post.get({ plain: true }));
+    const user = userData.get({ plain: true })
+    const posts = postData.map((post) => post.get({ plain: true }))
 
-    res.render("dashboard",
-    {
-        user: user,
-        posts: posts,
+    res.render('dashboard',
+      {
+        user,
+        posts,
         loggedIn: req.session.logged_in
-    });
+      })
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err)
   }
-});
+})
 
 // Prevent non logged in users from viewing
 router.get('/post', checkAuth, async (req, res) => {
-    res.render("new-post",
+  res.render('new-post',
     {
-        loggedIn: req.session.logged_in
-    });
-});
+      loggedIn: req.session.logged_in
+    })
+})
 
 router.get('/login', (req, res) => {
 //   // If a session exists, redirect the request to the homepage
@@ -116,10 +122,10 @@ router.get('/login', (req, res) => {
 //     return;
 //   }
 
-    res.render("login",
+  res.render('login',
     {
-        loggedIn: req.session.logged_in
-    });
-});
+      loggedIn: req.session.logged_in
+    })
+})
 
-module.exports = router;
+module.exports = router

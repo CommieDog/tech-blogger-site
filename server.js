@@ -1,20 +1,20 @@
-const path = require('path');
-const express = require('express');
-const session = require('express-session');
-const exphbs = require('express-handlebars');
-const routes = require('./controllers');
-const helpers = require('./utils/helpers');
+const path = require('path')
+const express = require('express')
+const session = require('express-session')
+const exphbs = require('express-handlebars')
+const routes = require('./controllers')
+const helpers = require('./utils/helpers')
 
-const sequelize = require('./config/connection');
-require('dotenv').config();
+const sequelize = require('./config/connection')
+require('dotenv').config()
 
 // Create a new sequelize store using the express-session package
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const SequelizeStore = require('connect-session-sequelize')(session.Store)
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+const app = express()
+const PORT = process.env.PORT || 3001
 
-const hbs = exphbs.create({ helpers });
+const hbs = exphbs.create({ helpers })
 
 // Configure and link a session object with the sequelize store
 const sess = {
@@ -23,27 +23,27 @@ const sess = {
     maxAge: 900000, // 15 minutes
     httpOnly: true,
     secure: false,
-    sameSite: 'strict',
+    sameSite: 'strict'
   },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
     db: sequelize
   })
-};
+}
 
 // Add express-session and store as Express.js middleware
-app.use(session(sess));
+app.use(session(sess))
 
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
+app.engine('handlebars', hbs.engine)
+app.set('view engine', 'handlebars')
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(routes);
+app.use(routes)
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`Now listening on Port ${PORT}`));
-});
+  app.listen(PORT, () => console.log(`Now listening on Port ${PORT}`))
+})
