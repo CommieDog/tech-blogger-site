@@ -1,14 +1,16 @@
 {{> header}}
 <main id="dashboard" class="container">
     <h2>Dashboard for {{user.username}}</h2>
-    <a href="/post"><button>Write a new blog post...</button></a>
+    <a href="/post"><button class="btn btn-dark">Write a new blog post...</button></a>
     {{#each posts as |post|}}
-    <article>
-        <h3><a href="/post-view/{{post.id}}">{{post.title}}</a></h3>
-        <button class="edit-button" data-post-id="{{post.id}}">Edit</button>
-        <button class="delete-button" data-post-id="{{post.id}}">Delete</button>
-        <p>{{format_time post.createdAt}}</p>
-        <p>{{post.content}}</p>
+    <article class="my-5">
+        <div class="row gx-5">
+            <h3 class="col-10"><a href="/post-view/{{post.id}}">{{post.title}}</a></h3>
+            <button class="edit-button btn btn-dark col-1" data-post-id="{{post.id}}">Edit</button>
+            <button class="delete-button btn btn-dark col-1" data-post-id="{{post.id}}">Delete</button>
+        </div>
+        <p class="fs-4">{{format_time post.createdAt}}</p>
+        <p class="fs-5 my-3">{{post.content}}</p>
     </article>
     {{/each}}
 </main>
