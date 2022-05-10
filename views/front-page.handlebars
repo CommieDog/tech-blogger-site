@@ -1,11 +1,11 @@
 {{> header}}
 <main class="container">
     {{#each posts as |post|}}
-    <article>
+    <article class="my-5">
         <h3><a href="/post-view/{{post.id}}">{{post.title}}</a></h3>
-        <p>By: {{post.user.username}}</p>
-        <p>On: {{format_time post.createdAt}}</p>
-        <p>{{post.content}}</p>
+        <p class="fs-4">By: {{post.user.username}}</p>
+        <p class="fs-4">On: {{format_time post.createdAt}}</p>
+        <p class="fs-5 my-3">{{post.content}}</p>
     </article>
     {{/each}}
 </main>
