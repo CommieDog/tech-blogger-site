@@ -2,6 +2,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 The Tech Blogger Site is a full stack website for posting and reading blog posts on the latest and greatest tech developments. It operates as one might expect a blog site to operate, allowing registered users to post content and comment on the posts of other users or their own.
 
+![Screencap of Tech Blogger Site showing typical use case](/assets/images/tech-blog-site-screenshot.jpg)
 
 ## Table of Contents
 
